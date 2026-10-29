@@ -17,7 +17,7 @@ client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000) if MONGO_URI else
 
 db = client["studentdb"] if client else None
 collection = db["students"] if db is not None else None
-
+todo_collection = db["todoitems"] if db is not None else None
 
 # Task 1: JSON API Route
 @app.route("/api")
@@ -75,7 +75,35 @@ def submit():
             error="Data could not be submitted. Please check the MongoDB connection and try again."
         ), 500
 
+# Task 3: To-Do Item Submission
+@app.route("/submittodoitem", methods=["POST"])
+def submit_todo_item():
+    try:
+        if todo_collection is None:
+            raise RuntimeError("MongoDB connection is not configured.")
 
+        item_name = request.form.get("itemName", "").strip()
+        item_description = request.form.get("itemDescription", "").strip()
+
+        if not item_name or not item_description:
+            return "Item Name and Item Description are required.", 400
+
+        todo_item = {
+            "itemName": item_name,
+            "itemDescription": item_description
+        }
+
+        client.admin.command("ping")
+        todo_collection.insert_one(todo_item)
+
+        return """
+        <h2>To-Do item submitted successfully!</h2>
+        <a href="/">Add another item</a>
+        """
+
+    except Exception:
+        app.logger.exception("To-Do submission failed")
+        return "Could not save the To-Do item. Please check MongoDB connection.", 500
 # Success Page
 @app.route("/success")
 def success():
