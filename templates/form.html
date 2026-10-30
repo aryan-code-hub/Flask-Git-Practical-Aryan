@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,32 +6,46 @@
     <title>To-Do Application</title>
 </head>
 <body>
+
     <h1>To-Do Application</h1>
 
-<form action="/submittodoitem" method="POST">
-    <label for="itemName">Item Name:</label>
-    <input
-        type="text"
-        id="itemName"
-        name="itemName"
-        placeholder="Enter item name"
-        required
-    >
+    <form action="/submittodoitem" method="POST">
 
-    <br><br>
+        <label for="itemName">Item Name:</label>
+        <input
+            type="text"
+            id="itemName"
+            name="itemName"
+            placeholder="Enter item name"
+            required
+        >
 
-    <label for="itemDescription">Item Description:</label>
-    <textarea
-        id="itemDescription"
-        name="itemDescription"
-        placeholder="Enter item description"
-        required
-    ></textarea>
+        <br><br>
 
-    <br><br>
+        <label for="itemId">Item ID:</label>
+        <input
+            type="text"
+            id="itemId"
+            name="itemId"
+            placeholder="Enter item ID"
+            required
+        >
 
-    <button type="submit">Add To-Do Item</button>
-</form>
+        <br><br>
+
+        <label for="itemDescription">Item Description:</label>
+        <textarea
+            id="itemDescription"
+            name="itemDescription"
+            placeholder="Enter item description"
+            required
+        ></textarea>
+
+        <br><br>
+
+        <button type="submit">Add To-Do Item</button>
+
+    </form>
 
 </body>
 </html>
